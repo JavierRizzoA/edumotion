@@ -1,7 +1,9 @@
 import Leap from 'leapjs';
 var FPS = 30;
 var ctx = document.getElementById('finger-hero-canvas').getContext('2d');
+var stat = document.getElementById('status');
 var squares = [];
+var pinchFinger;
 
 class Square {
   constructor(finger, length) {
@@ -11,7 +13,7 @@ class Square {
   }
 
   draw() {
-    switch(finger) {
+    switch(this.finger) {
       case 0:
         ctx.fillStyle = '#4CAF50';
         break;
@@ -33,22 +35,29 @@ class Square {
     ctx.closePath();
     ctx.fill();
 
-    console.log(this.y);
+    //console.log(this.y);
   }
 
   update() {
     this.y++;
+    if (this.y > 480) {
+      var pos = squares.indexOf(this);
+      console.log(pos);
+      squares.splice(pos,1);
+    }
   }
 
-  xAt(y, f) {
-    return 250 + 35 * f * (y/(480 / (-70 + 35 * f)));
+  xAt(y, i) {
+    var m = getStep(i);
+    return y/m + (250 + 35 * i) ;
   }
 }
 
-squares.push(new Square(0, 20));
+squares.push(new Square(2, 30));
 
 setInterval(function() {
   update();
+  checkHitbox();
   draw();
 }, 1000 / FPS);
 
@@ -56,10 +65,28 @@ function update() {
   squares.forEach(function(square) {square.update()});
 }
 
+function checkHitbox () {
+  squares.forEach(function (square) {
+    if(square.y + square.length > 480 - square.length) {
+      if(square.y < 480) {
+        if(pinchFinger === square.finger) {
+          stat.style.backgroundColor = "GREEN";
+        } else {
+          stat.style.backgroundColor = "RED";
+        }
+      }
+    }
+  })
+}
+
 function draw() {
   ctx.clearRect(0, 0, 640, 480);
   drawFrets();
   squares.forEach(function(square) {square.draw()});
+}
+
+function getStep(i) {
+  return 480 / ( (180 + 70 * i) - (250 + 35 * i) );
 }
 
 function drawFrets() {
@@ -74,22 +101,21 @@ var controllerOptions = {enableGestures: true};
 Leap.loop(controllerOptions, (frame) => {
   if (frame.hands.length > 0) {
     var hand = frame.hands[0];
-    if (hand.confidence > 0.5 && hand.pinchStrength  > 0.6) {
-      var pinchFinger = findPinchFinger(hand);
-      //console.log(pinchFinger);
+    if (hand.confidence > 0.4 && hand.pinchStrength  > 0.5) {
+      pinchFinger = findPinchFinger(hand);
+      console.log(pinchFinger);
     }
+    else pinchFinger = null;
   }
 });
 
 let findPinchFinger = (hand) => {
   let pincher;
   let closest = 500;
-  for(let f = 1; f < 5; f++)
-  {
+  for(let f = 1; f < 5; f++) {
     let current = hand.fingers[f];
     let distance = Leap.vec3.distance(hand.thumb.tipPosition, current.tipPosition);
-    if(current != hand.thumb && distance < closest)
-    {
+    if(current != hand.thumb && distance < closest) {
       closest = distance;
       pincher = current; 
     }
