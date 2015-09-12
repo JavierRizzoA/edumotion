@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/JavierRizzoA/edumotion#readme",
   "dependencies": {
+    "bootstrap": "^3.3.5",
+    "jquery": "^2.1.4",
     "leapjs": "^0.6.4",
     "serialport-electron": "^1.7.4-electron-0.30.6"
   }
