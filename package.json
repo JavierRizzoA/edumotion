@@ -1,0 +1,19 @@
+{
+  "name": "edumotion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JavierRizzoA/edumotion.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JavierRizzoA/edumotion/issues"
+  },
+  "homepage": "https://github.com/JavierRizzoA/edumotion#readme"
+}
