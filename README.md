@@ -6,7 +6,7 @@
 
 You will need electron and Babel CLI to run:
 
-    npm install -g electron
+    npm install -g electron-prebuilt
     npm install -g babel
 
 The rest of the dependencies will be installed with
