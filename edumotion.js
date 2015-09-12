@@ -8,7 +8,6 @@ var controllerOptions = {enableGestures: true};
 Leap.loop(controllerOptions, function(frame) {
   if(previousFrame && previousFrame.valid) {
     var rotationAxis = frame.rotationAxis(previousFrame);
-    var rotationAngle = frame.rotationAngle(previousFrame);
     var frameString = "Rotation axis: " + vectorToString(rotationAxis, 2) + "<br />";
     document.getElementById('content').innerHTML = "<div>"+frameString+"</div>";
   }
