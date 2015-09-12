@@ -75,6 +75,7 @@ function checkHitbox () {
       if(square.y < 480) {
         if(pinchFinger === square.finger) {
           stat.style.backgroundColor = "GREEN";
+          console.log("VERDE");
         } else {
           stat.style.backgroundColor = "RED";
         }
@@ -105,10 +106,9 @@ var controllerOptions = {enableGestures: true};
 Leap.loop(controllerOptions, (frame) => {
   if (frame.hands.length > 0) {
     var hand = frame.hands[0];
-    if (hand.confidence > 0.4 && hand.pinchStrength  > 0.5) {
+    if (hand.pinchStrength  > 0.5) {
       pinchFinger = findPinchFinger(hand);
     }
-    else pinchFinger = null;
   }
 });
 
@@ -123,6 +123,5 @@ let findPinchFinger = (hand) => {
       pincher = current; 
     }
   } 
-
   return pincher.type - 1;
 }
