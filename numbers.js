@@ -18,8 +18,9 @@ window.disconnectNumber = function () {
 var iter = 0;
 var operaciones = ["2 + 3 = __",
                    "4 - 2 = __",
-                   "__ * 7 = 21"];
-var respuestas = [5, 2, 3];
+                   "__ * 7 = 21",
+                   "4 * __ = 20"];
+var respuestas = [5, 2, 3,5];
 var operacionesDOM = document.getElementById('operaciones');
 operacionesDOM.innerHTML = operaciones[iter];
 
