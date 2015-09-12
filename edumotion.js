@@ -17,7 +17,7 @@ SP.list(function (err, ports) {
     return;
   }
   ports.forEach(function(port) {
-    serialPort = new SerialPort(port.comName, { baudrate: 57600 });
+    serialPort = new SerialPort(port.comName, { baudrate: 9600 });
     console.log(port.comName);
     console.log(port.pnpId);
     console.log(port.manufacturer);
@@ -32,18 +32,28 @@ Leap.loop(controllerOptions, function(frame) {
   
 
     if(!!serialPort && window.arduinoActive) {
-      serialPort.write(vectorToArduino(rotationAxis, 3));
+      var rotX = doubleToByte(rotationAxis[0], true);
+      var rotY = doubleToByte(rotationAxis[2], false);
+      if(rotX !== 4) serialPort.write(rotX);
+      if(rotY !== 4) serialPort.write(rotY);
+      //serialPort.write(doubleToByte(rotationAxis[0], true));
+      //serialPort.write(doubleToByte(rotationAxis[2], false));
     }
           
   }
   previousFrame = frame;
 });
 
-function vectorToArduino(vector, digits) {
-  if (typeof digits === "undefined") {
-    digits = 1;
+function doubleToByte(d, axis) {
+  if(axis) {
+    if(d < -.7) return 'A';
+    if(d > .7) return 'B';
+  } else {
+    if(d < -.7) return 'C';
+    if(d > .7) return 'D';
   }
-  return "" + vector[0].toFixed(digits) + " " + vector[2].toFixed(digits);
+  return 4;
+  //return Math.floor((180*(d + 1))/2);
 }
 
 function vectorToString(vector, digits) {
