@@ -2,6 +2,9 @@ import Leap from 'leapjs';
 import SP from 'serialport-electron';
 let {SerialPort} = SP;
 
+window.arduinoActive = false;
+window.fhActive = false;
+
 // Store frame for motion functions
 var previousFrame = null;
 // Setup Leap loop with frame callback function
@@ -28,7 +31,7 @@ Leap.loop(controllerOptions, function(frame) {
     document.getElementById('content').innerHTML = "<div>"+frameString+"</div>";
   
 
-    if(!!serialPort) {
+    if(!!serialPort && window.arduinoActive) {
       serialPort.write(vectorToArduino(rotationAxis, 3));
     }
           
@@ -51,4 +54,17 @@ function vectorToString(vector, digits) {
   + vector[1].toFixed(digits) + ", "
   + vector[2].toFixed(digits) + ")";
 }
+
+$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+  window.arduinoActive = false;
+  window.fhActive = false;
+  window.stopFH();
+  var target = $(e.target).attr("href");
+  if(target === '#tilt') {
+    arduinoActive = true;
+  } else if(target === '#finger') {
+    window.fhActive = true;
+    window.startFH();
+  }
+});
 

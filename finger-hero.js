@@ -5,6 +5,20 @@ var stat = document.getElementById('status');
 var squares = [];
 var pinchFinger;
 
+window.startFH = function() {
+  squares = [];
+  squares.push(new Square(2, 30));
+  window.intervalFH = setInterval(function() {
+    update();
+    checkHitbox();
+    draw();
+  }, 1000 / FPS);
+};
+
+window.stopFH = function() {
+  clearInterval(window.intervalFH);
+};
+
 class Square {
   constructor(finger, length) {
     this.finger = finger;
@@ -35,14 +49,12 @@ class Square {
     ctx.closePath();
     ctx.fill();
 
-    //console.log(this.y);
   }
 
   update() {
     this.y++;
     if (this.y > 480) {
       var pos = squares.indexOf(this);
-      console.log(pos);
       squares.splice(pos,1);
     }
   }
@@ -52,14 +64,6 @@ class Square {
     return y/m + (250 + 35 * i) ;
   }
 }
-
-squares.push(new Square(2, 30));
-
-setInterval(function() {
-  update();
-  checkHitbox();
-  draw();
-}, 1000 / FPS);
 
 function update() {
   squares.forEach(function(square) {square.update()});
@@ -103,7 +107,6 @@ Leap.loop(controllerOptions, (frame) => {
     var hand = frame.hands[0];
     if (hand.confidence > 0.4 && hand.pinchStrength  > 0.5) {
       pinchFinger = findPinchFinger(hand);
-      console.log(pinchFinger);
     }
     else pinchFinger = null;
   }
