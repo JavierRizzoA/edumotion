@@ -7,8 +7,12 @@ var previousFrame = null;
 // Setup Leap loop with frame callback function
 var controllerOptions = {enableGestures: true};
 
-var serialPort;
+var serialPort = null;
 SP.list(function (err, ports) {
+  if(!ports) {
+    console.log("NO PORTS FOUND!");
+    return;
+  }
   ports.forEach(function(port) {
     serialPort = new SerialPort(port.comName, { baudrate: 57600 });
     console.log(port.comName);
@@ -17,15 +21,16 @@ SP.list(function (err, ports) {
   });
 });
 
-
-
 Leap.loop(controllerOptions, function(frame) {
   if(previousFrame && previousFrame.valid) {
     var rotationAxis = frame.rotationAxis(previousFrame);
     var frameString = "Rotation axis: " + vectorToString(rotationAxis, 2) + "<br />";
     document.getElementById('content').innerHTML = "<div>"+frameString+"</div>";
   
-    serialPort.write(vectorToArduino(rotationAxis, 3));
+
+    if(!!serialPort) {
+      serialPort.write(vectorToArduino(rotationAxis, 3));
+    }
           
   }
   previousFrame = frame;
