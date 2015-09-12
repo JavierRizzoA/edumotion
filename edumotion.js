@@ -1,5 +1,5 @@
 import Leap from 'leapjs';
-import SP from 'serialport';
+import SP from 'serialport-electron';
 let {SerialPort} = SP;
 
 // Store frame for motion functions
