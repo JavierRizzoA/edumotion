@@ -4,10 +4,12 @@ var ctx = document.getElementById('finger-hero-canvas').getContext('2d');
 var stat = document.getElementById('status');
 var squares = [];
 var pinchFinger;
+var points = 0;
 
 window.startFH = function() {
   squares = [];
   squares.push(new Square(2, 30));
+  points = 0;
   window.intervalFH = setInterval(function() {
     update();
     checkHitbox();
@@ -52,12 +54,13 @@ class Square {
   }
 
   update() {
-    this.y++;
+    this.y+=3;
     if (this.y > 480) {
       var pos = squares.indexOf(this);
       squares.splice(pos,1);
+      pinchFinger = null;
     }
-    if(squares[squares.length - 1].y > 35 && Math.floor((Math.random() * 100) + 1) === 99) {
+    if(squares[squares.length - 1].y > 35 && Math.floor((Math.random() * 100) + 1) > 90) {
       squares.push(new Square(Math.floor((Math.random() * 4) + 0), 30));
     }
   }
@@ -77,10 +80,10 @@ function checkHitbox () {
     if(square.y + square.length > 480 - square.length) {
       if(square.y < 480) {
         if(pinchFinger === square.finger) {
-          stat.style.backgroundColor = "GREEN";
-          console.log("VERDE");
+          //stat.style.backgroundColor = "GREEN";
+          points++;
         } else {
-          stat.style.backgroundColor = "RED";
+          //stat.style.backgroundColor = "RED";
         }
       }
     }
@@ -89,8 +92,25 @@ function checkHitbox () {
 
 function draw() {
   ctx.clearRect(0, 0, 640, 480);
+  ctx.fillStyle = '#455A64';
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  ctx.lineTo(0, 480);
+  ctx.lineTo(180, 480);
+  ctx.lineTo(250, 0);
+  ctx.closePath();
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(640, 0);
+  ctx.lineTo(640, 480);
+  ctx.lineTo(640 - 180, 480);
+  ctx.lineTo(640 - 250, 0);
+  ctx.closePath();
+  ctx.fill();
   drawFrets();
   squares.forEach(function(square) {square.draw()});
+  ctx.font = '30px Arial';
+  ctx.fillText(Math.floor(points / 3), 10, 40);
 }
 
 function getStep(i) {
