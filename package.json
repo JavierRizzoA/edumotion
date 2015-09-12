@@ -4,7 +4,9 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "electron ."
+    "test": "electron .",
+    "build":"babel edumotion.js -o edumotion-compiled.js && babel finger-hero.js -o finger-hero-compiled.js" ,
+    "dev": "npm run build && electron ."
   },
   "repository": {
     "type": "git",
