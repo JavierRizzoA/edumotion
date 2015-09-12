@@ -27,6 +27,7 @@ SP.list(function (err, ports) {
   });
 });
 var wait = false;
+var wt = false;
 window.conn = Leap.loop(controllerOptions, function(frame) {
   if(previousFrame && previousFrame.valid) {
     var rotationAxis = frame.rotationAxis(previousFrame);
@@ -47,7 +48,13 @@ window.conn = Leap.loop(controllerOptions, function(frame) {
       if (hand.pinchStrength  > 0.5) {
         pinchFinger = findPinchFinger(hand);
       }
-      var fingersUp = countFingers(hand);
+      if(!wt) { 
+        var fingersUp = countFingers(hand);
+        wt = true;
+        setTimeout(function() {
+          wt = false;
+        },1000);
+      }
       if( !wait && fingersUp === respuestas[iter]) {
         wait = true;
         respuestaDOM.innerHTML = respuestas[iter];
@@ -109,6 +116,8 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
     window.startFH();
   } else if (target === '#numbers') {
     window.numberActive = true
+    iter = 0;
+    operacionesDOM.innerHTML = operaciones[iter];
     //window.connectNumber();
   }
   
