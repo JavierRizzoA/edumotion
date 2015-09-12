@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello World!</title>
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="a.css">
   </head>
   <body>
     <div>
@@ -13,6 +14,7 @@
         <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
         <li role="presentation"><a href="#tilt" role="tab" data-toggle="tab">Tilt game</a></li>
         <li role="presentation"><a href="#finger" role="tab" data-toggle="tab">Finger Hero</a></li>
+        <li role="presentation"><a href="#numbers" role="tab" data-toggle="tab">Numbers</a></li>
       </ul>
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
@@ -32,11 +34,21 @@
             <canvas id="finger-hero-canvas" width="640" height="480" style="border: 1px solid #000000; padding: 0; margin: 15px auto; display: block;"></canvas>
           </div>
         </div>
+        <div role="tabpanel" class="tab-pane" id="numbers">
+          <div id="operaciones" style="font-size:40px"> </div>
+        </div>
       </div>
     </div>
     <script>window.$ = window.jQuery = require('jquery')</script>
+    <script>window.Leap = require('leapjs');</script>
+    <script type="text/javascript" src="three.min.js"></script>
+    <script type="text/javascript" src="leap.hand-hold.js"></script>
+    <script type="text/javascript" src="leap.hand-entry.js"></script>
+    <script type="text/javascript" src="leap.version-check.js"></script>
+    <script type="text/javascript" src="leap.rigged-hand-0.1.7.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="edumotion-compiled.js" ></script>
     <script src="finger-hero-compiled.js" ></script>
+    <script src="numbers.js"></script>
   </body>
 </html>
