@@ -1,13 +1,14 @@
 import Leap from 'leapjs';
+import SP from 'serialport';
+let {SerialPort} = SP;
 
 // Store frame for motion functions
 var previousFrame = null;
 // Setup Leap loop with frame callback function
 var controllerOptions = {enableGestures: true};
 
-var SerialPort = require("serialport").SerialPort
 var serialPort;
-SerialPort.list(function (err, ports) {
+SP.list(function (err, ports) {
   ports.forEach(function(port) {
     serialPort = new SerialPort(port.comName, { baudrate: 57600 });
     console.log(port.comName);
