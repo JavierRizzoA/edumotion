@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/JavierRizzoA/edumotion/issues"
   },
-  "homepage": "https://github.com/JavierRizzoA/edumotion#readme"
+  "homepage": "https://github.com/JavierRizzoA/edumotion#readme",
+  "dependencies": {
+    "leapjs": "^0.6.4"
+  }
 }
