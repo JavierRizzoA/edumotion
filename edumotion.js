@@ -1,4 +1,5 @@
 import Leap from 'leapjs';
+import SerialPort from 'serialport-electron';
 
 // Store frame for motion functions
 var previousFrame = null;
