@@ -57,6 +57,9 @@ class Square {
       var pos = squares.indexOf(this);
       squares.splice(pos,1);
     }
+    if(squares[squares.length - 1].y > 35 && Math.floor((Math.random() * 100) + 1) === 99) {
+      squares.push(new Square(Math.floor((Math.random() * 4) + 0), 30));
+    }
   }
 
   xAt(y, i) {
