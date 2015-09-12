@@ -8,9 +8,30 @@
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using io.js <script>document.write(process.version)</script>
-    and Electron <script>document.write(process.versions['electron'])</script>.
+    <div>
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
+        <li role="presentation"><a href="#tilt" role="tab" data-toggle="tab">Tilt game</a></li>
+        <li role="presentation"><a href="#finger" role="tab" data-toggle="tab">Finger Hero</a></li>
+      </ul>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+          <div class="container-fluid">
+            <h2>Welcome to EduMotion</h2>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tilt">
+          <div class="container-fluid">
+            <h2>Tilt game</h2>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="finger">
+          <div class="container-fluid">
+            <h2>Finger Hero</h2>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id='content'></div>
     <script src="edumotion-compiled.js" ></script>
     <script>window.$ = window.jQuery = require('jquery')</script>
