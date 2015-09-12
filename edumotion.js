@@ -11,6 +11,8 @@ var previousFrame = null;
 // Setup Leap loop with frame callback function
 var controllerOptions = {enableGestures: true};
 
+var respuestaDOM = document.getElementById('respuesta');
+
 var serialPort = null;
 SP.list(function (err, ports) {
   if(!ports) {
