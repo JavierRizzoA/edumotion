@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/JavierRizzoA/edumotion#readme",
   "dependencies": {
-    "leapjs": "^0.6.4"
+    "leapjs": "^0.6.4",
+    "serialport": "^1.7.4"
   }
 }
