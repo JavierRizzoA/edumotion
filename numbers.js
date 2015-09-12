@@ -19,8 +19,9 @@ var iter = 0;
 var operaciones = ["2 + 3 = __",
                    "4 - 2 = __",
                    "__ * 7 = 21",
-                   "4 * __ = 20"];
-var respuestas = [5, 2, 3,5];
+                   "4 * __ = 20",
+                   "3 - 1 = __"];
+var respuestas = [5, 2, 3, 5, 2 ];
 var operacionesDOM = document.getElementById('operaciones');
 operacionesDOM.innerHTML = operaciones[iter];
 

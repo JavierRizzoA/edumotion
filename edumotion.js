@@ -26,7 +26,7 @@ SP.list(function (err, ports) {
     console.log(port.manufacturer);
   });
 });
-
+var wait = false;
 window.conn = Leap.loop(controllerOptions, function(frame) {
   if(previousFrame && previousFrame.valid) {
     var rotationAxis = frame.rotationAxis(previousFrame);
@@ -47,16 +47,22 @@ window.conn = Leap.loop(controllerOptions, function(frame) {
       if (hand.pinchStrength  > 0.5) {
         pinchFinger = findPinchFinger(hand);
       }
-      if(!!hand) {
+      var fingersUp = countFingers(hand);
+      if( !wait && fingersUp === respuestas[iter]) {
+        wait = true;
+        respuestaDOM.innerHTML = respuestas[iter];
         setTimeout(function () {
-          var fingersUp = countFingers(hand);
-          if(fingersUp === respuestas[iter]) {
-            console.log("SUCCESS");
-            iter++;
+          wait = false;
+          respuestaDOM.innerHTML = " ";
+          if(iter < respuestas.length){
             operacionesDOM.innerHTML = operaciones[iter];
+          } else {
+            operacionesDOM.innerHTML = "gracias por jugar";
           }
-        },3000)
+        },4000);
+        iter++;
       }
+      
 
     }
 
